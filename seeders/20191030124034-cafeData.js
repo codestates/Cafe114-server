@@ -366,7 +366,7 @@ module.exports = {
       {
         id: 31,
         name: '압구정점',
-        address: '서울특별시 강남구 논현로175길 38 (신사동) 1층 [탐앤탐스]',
+        address: '서울 강남구 논현로175길 38 (신사동) 1층 [탐앤탐스]',
         telephone: '02-514-3300',
         category: 'TOMTOM',
         brand: '탐앤탐스 클래식',
