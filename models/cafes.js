@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false
       },
-      brand: {
+      detailCategory: {
         type: DataTypes.STRING
       },
       smokingRoom: {
