@@ -21,6 +21,9 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false
       },
+      brand: {
+        type: DataTypes.STRING
+      },
       smokingRoom: {
         type: DataTypes.BOOLEAN
       },
@@ -29,7 +32,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     {
-      timestamps: false,
+      timestamps: true,
       underscored: true,
       freezeTableName: true,
       tableName: 'cafes'
