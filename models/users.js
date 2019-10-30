@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       location: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.TINYINT(1)
       }
     },
     {
