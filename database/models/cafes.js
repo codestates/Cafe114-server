@@ -34,5 +34,10 @@ module.exports = function(sequelize, DataTypes) {
       tableName: 'cafes'
     }
   );
+  cafes.associate = function(models) {
+    cafes.hasMany(models.comments);
+    cafes.hasMany(models.images);
+    cafes.belongsToMany(models.users, { through: models.userLikeCafe });
+  };
   return cafes;
 };
