@@ -7,7 +7,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
-const models = require('./models/index.js');
+const models = require('../database/models/index.js');
 
 const app = express();
 
@@ -22,7 +22,7 @@ models.sequelize // AWS RDS mysql 연결해주기
   })
   .catch(err => {
     console.log('연결실패');
-    console.log(err);
+    console.error(err);
   });
 
 app.use(logger('dev'));
