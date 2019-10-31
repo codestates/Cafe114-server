@@ -10,7 +10,8 @@ const usersRouter = require('./routes/users');
 const models = require('../database/models/index.js');
 
 const app = express();
-
+require('dotenv').config();
+console.log('process.env.RDS_ID', process.env.RDSID);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

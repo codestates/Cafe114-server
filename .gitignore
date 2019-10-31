@@ -1,3 +1,6 @@
 node_modules
 
-database/models/config
+# For your secret
+secret.js
+
+.gitignore
