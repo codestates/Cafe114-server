@@ -4,33 +4,32 @@ module.exports = function(sequelize, DataTypes) {
     {
       name: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false
       },
       address: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false
       },
       telephone: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
+        type: DataTypes.STRING
       },
       category: {
         type: DataTypes.STRING,
         allowNull: false
       },
+      detailCategory: {
+        type: DataTypes.STRING
+      },
       smokingRoom: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.TINYINT(1)
       },
       parkingLot: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.TINYINT(1)
       }
     },
     {
-      timestamps: false,
-      underscored: true,
+      timestamps: true,
+      underscored: false,
       freezeTableName: true,
       tableName: 'cafes'
     }
