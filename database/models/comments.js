@@ -5,14 +5,6 @@ module.exports = function(sequelize, DataTypes) {
       comment: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      cafeId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
       }
     },
     {
@@ -22,5 +14,9 @@ module.exports = function(sequelize, DataTypes) {
       tableName: 'comments'
     }
   );
+  comments.associate = function(models) {
+    comments.belongsTo(models.users, { as: 'user' });
+    comments.belongsTo(models.cafes, { as: 'cafe' });
+  };
   return comments;
 };

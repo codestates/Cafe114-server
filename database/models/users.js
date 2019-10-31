@@ -27,5 +27,9 @@ module.exports = function(sequelize, DataTypes) {
       tableName: 'users'
     }
   );
+  users.associate = function(models) {
+    users.hasMany(models.comments);
+    users.belongsToMany(models.cafes, { through: models.userLikeCafe });
+  };
   return users;
 };

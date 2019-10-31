@@ -5,18 +5,17 @@ module.exports = function(sequelize, DataTypes) {
       image: {
         type: DataTypes.BLOB,
         allowNull: false
-      },
-      cafeId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
       }
     },
     {
-      timestamps: true,
+      timestamps: false,
       underscored: false,
       freezeTableName: true,
       tableName: 'images'
     }
   );
+  images.associate = function(models) {
+    images.belongsTo(models.cafes, { as: 'cafe' });
+  };
   return images;
 };
