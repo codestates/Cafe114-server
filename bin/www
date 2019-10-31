@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../server/app');
+var app = require('../app');
 var debug = require('debug')('cafe114-server:server');
 var http = require('http');
 
