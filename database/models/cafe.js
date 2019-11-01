@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
-  let cafes = sequelize.define(
-    'cafes',
+  let cafe = sequelize.define(
+    'cafe',
     {
       name: {
         type: DataTypes.STRING,
@@ -31,13 +31,13 @@ module.exports = function(sequelize, DataTypes) {
       timestamps: true,
       underscored: false,
       freezeTableName: true,
-      tableName: 'cafes'
+      tableName: 'cafe'
     }
   );
-  cafes.associate = function(models) {
-    cafes.hasMany(models.comments);
-    cafes.hasMany(models.images);
-    cafes.belongsToMany(models.users, { through: models.userLikeCafe });
+  cafe.associate = function(models) {
+    cafe.hasMany(models.comments);
+    cafe.hasMany(models.images);
+    cafe.belongsToMany(models.users, { through: models.userLikeCafe });
   };
-  return cafes;
+  return cafe;
 };

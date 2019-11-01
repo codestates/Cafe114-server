@@ -1,6 +1,10 @@
 node_modules
+dist/*
+*.log
 
 # For your secret
 secret.js
 
-.gitignore
+.eslintrc.json
+
+.sequelizerc

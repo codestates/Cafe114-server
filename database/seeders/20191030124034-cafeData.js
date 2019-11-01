@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('cafes', [
+    return queryInterface.bulkInsert('cafe', [
       {
         id: 1,
         name: 'DMC 탐스커버리점',
@@ -1002,7 +1002,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('cafes', null, {});
+    return queryInterface.bulkDelete('cafe', null, {});
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.

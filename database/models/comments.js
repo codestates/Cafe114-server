@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
   );
   comments.associate = function(models) {
     comments.belongsTo(models.users, { as: 'user' });
-    comments.belongsTo(models.cafes, { as: 'cafe' });
+    comments.belongsTo(models.cafe, { as: 'cafe' });
   };
   return comments;
 };
