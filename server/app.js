@@ -3,9 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const AWS = require('aws-sdk');
+
 const s3 = require('../database/models/config/s3');
 
 const models = require('../database/models/index.js');
