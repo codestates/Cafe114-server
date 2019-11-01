@@ -25,6 +25,13 @@ module.exports = {
         res.send('Complete signup');
       }
       res.send(result);
+    },
+    checkEmail: async (req, res) => {
+      let result = await models.index.checkEmail(req.body.email);
+      if (result !== null) {
+        res.status(400).send('Duplicated email');
+      }
+      res.send('Available email');
     }
   }
 };

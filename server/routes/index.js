@@ -8,4 +8,5 @@ router.post('/signin', controller.index.signIn);
 
 router.post('/signup', controller.index.signUp);
 
+router.post('/signup/email', controller.index.checkEmail);
 module.exports = router;

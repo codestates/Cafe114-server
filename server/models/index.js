@@ -42,6 +42,11 @@ module.exports = {
           password: hashPassword
         })
         .catch(err => console.error(err));
+    },
+    checkEmail: async email => {
+      return await db.users
+        .findOne({ where: { email: email } })
+        .catch(err => console.error(err));
     }
   }
 };
