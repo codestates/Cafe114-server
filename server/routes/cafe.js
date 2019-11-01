@@ -3,6 +3,6 @@ const router = require('express').Router();
 
 router.get('/', controller.cafe.get);
 
-router.post('/:id', controller.cafe.postId);
+router.get('/:id', controller.cafe.getId);
 
 module.exports = router;
