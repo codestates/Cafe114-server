@@ -1,7 +1,7 @@
 const db = require('../../database/models');
 const crypto = require('crypto');
-const secret = require('../../secret').password;
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports = {
   index: {
@@ -14,7 +14,7 @@ module.exports = {
       const dbPassword = result.dataValues.password;
       const hashPassword = crypto
         .createHash('sha512')
-        .update(password + secret)
+        .update(password + process.env.password)
         .digest('hex');
 
       if (dbPassword === hashPassword) {
@@ -22,7 +22,7 @@ module.exports = {
           {
             email: email
           },
-          secret,
+          process.env.password,
           { expiresIn: '60m' }
         );
         return token;
@@ -34,7 +34,7 @@ module.exports = {
       const { email, password } = body;
       const hashPassword = crypto
         .createHash('sha512')
-        .update(password + secret)
+        .update(password + process.env.password)
         .digest('hex');
       return await db.users
         .create({
