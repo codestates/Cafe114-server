@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
   images.associate = function(models) {
-    images.belongsTo(models.cafes, { as: 'cafe' });
+    images.belongsTo(models.cafe, { as: 'cafe' });
   };
   return images;
 };

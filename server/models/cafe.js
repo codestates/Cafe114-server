@@ -1,9 +1,9 @@
 const models = require('../../database/models');
 
 module.exports = {
-  index: {
+  cafe: {
     get: () => {
-      return models.cafes.findAll();
+      return models.cafe.findAll();
     }
   }
 };

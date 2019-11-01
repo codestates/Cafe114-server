@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
   );
   users.associate = function(models) {
     users.hasMany(models.comments);
-    users.belongsToMany(models.cafes, { through: models.userLikeCafe });
+    users.belongsToMany(models.cafe, { through: models.userLikeCafe });
   };
   return users;
 };
