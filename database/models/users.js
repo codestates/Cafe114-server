@@ -5,7 +5,10 @@ module.exports = function(sequelize, DataTypes) {
       email: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          isEmail: true
+        }
       },
       password: {
         type: DataTypes.STRING,
@@ -13,8 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       nickname: {
         type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
+        unique: true
       },
       location: {
         type: DataTypes.TINYINT(1)
