@@ -5,6 +5,9 @@ dist/*
 # For your secret
 secret.js
 
+# For your secret
+.env
+
 .eslintrc.json
 
 .sequelizerc

@@ -1,11 +1,11 @@
-const secret = require('../../../secret');
+require('dotenv').config();
 
 module.exports = {
   development: {
-    username: secret.id,
-    password: secret.password,
-    database: secret.database,
-    host: secret.host,
+    username: process.env.id,
+    password: process.env.password,
+    database: process.env.database,
+    host: process.env.host,
     dialect: 'mysql',
     operatorsAliases: false
   },
@@ -18,10 +18,10 @@ module.exports = {
     operatorsAliases: false
   },
   production: {
-    username: secret.id,
-    password: secret.password,
-    database: secret.database,
-    host: secret.host,
+    username: process.env.id,
+    password: process.env.password,
+    database: process.env.database,
+    host: process.env.host,
     dialect: 'mysql',
     operatorsAliases: false
   }
