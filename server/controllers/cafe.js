@@ -31,7 +31,8 @@ module.exports = {
         .then(filtered => {
           result.images = filtered; // cafe에서 받은 데이터에 images key로 배열 형태의 value추가해서
           res.send(result); // result로 반환한다
-        });
+        })
+        .catch(err => console.error(err));
     }
   }
 };
