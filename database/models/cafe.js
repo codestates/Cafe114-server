@@ -10,6 +10,18 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false
       },
+      subAddress: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      gu: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      dong: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       telephone: {
         type: DataTypes.STRING
       },
