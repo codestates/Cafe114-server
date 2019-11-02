@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const models = require('../models/index');
 
 module.exports = {
@@ -15,16 +14,15 @@ module.exports = {
       }
       res.cookie('userToken', token); // 유저의 cookie에 토큰 정보 심어주기
       res.json({ token: token }); // token 정보 반환히기
-      // res.redirect('/users/login');
+      // res.redirect('/user/login');
     },
     signUp: async (req, res) => {
       let result = await models.index.signUp(req.body);
-      if (result === undefined) {
+      if (!result) {
         res.status(400).send('Failed signup');
       } else {
         res.send('Complete signup');
       }
-      res.send(result);
     },
     checkEmail: async (req, res) => {
       let result = await models.index.checkEmail(req.body.email);
