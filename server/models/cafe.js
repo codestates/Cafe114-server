@@ -2,11 +2,17 @@ const db = require('../../database/models');
 
 module.exports = {
   cafe: {
-    get: () => {
-      return db.cafe.findAll().catch(err => console.error(err));
+    get: async () => {
+      return await db.cafe.findAll().catch(err => console.error(err));
     },
-    getId: cafeId => {
-      return db.cafe
+    getAddress: async () => {
+      return await db.cafe
+        .findAll()
+        .then(ele => ele.map(ele => ele.address))
+        .catch(err => console.error(err));
+    },
+    getId: async cafeId => {
+      return await db.cafe
         .findAll({
           where: { id: cafeId }
         })

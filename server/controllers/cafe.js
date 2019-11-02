@@ -7,6 +7,10 @@ module.exports = {
       const result = await models.cafe.get();
       res.send(result);
     },
+    getAddress: async (req, res) => {
+      const result = await models.cafe.getAddress();
+      res.send(result);
+    },
     getId: async (req, res) => {
       const searchId = '/' + req.params.id + '-'; // searchId에 '/' 문자열 '-'룰 붙였다 s3에서 찾기위한 로직 예 /55-
       let result = await models.cafe.getId(req.params.id); // 우선 cafe db에서 id와 일치하는 데이터베이스를 가져온다.
