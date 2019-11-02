@@ -8,7 +8,11 @@ module.exports = {
     getAddress: async () => {
       return await db.cafe
         .findAll()
-        .then(ele => ele.map(ele => ele.address))
+        .then(ele =>
+          ele.map(ele => {
+            return { id: ele.id, address: ele.address };
+          })
+        )
         .catch(err => console.error(err));
     },
     getId: async cafeId => {
