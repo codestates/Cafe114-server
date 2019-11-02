@@ -1,11 +1,29 @@
 const models = require('../models/cafe');
+const userModel = require('../models/user');
 const s3 = require('../../database/models/config/s3');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports = {
   cafe: {
     get: async (req, res) => {
+      const token = req.cookies.userToken;
       const result = await models.cafe.get();
-      res.send(result);
+      if (!token) {
+        res.send(result);
+      } else {
+        const decodedToken = jwt.verify(token, process.env.password);
+        const userFavorites = await userModel.user.getFavorites(
+          decodedToken.id
+        );
+        if (userFavorites) {
+          result.unshift(userFavorites);
+          res.send(result);
+        } else {
+          result.unshift([]);
+          res.send(result);
+        }
+      }
     },
     getAddress: async (req, res) => {
       const result = await models.cafe.getAddress();

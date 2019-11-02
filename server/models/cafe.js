@@ -3,7 +3,10 @@ const db = require('../../database/models');
 module.exports = {
   cafe: {
     get: async () => {
-      return await db.cafe.findAll().catch(err => console.error(err));
+      return await db.cafe
+        .findAll()
+        .then(ele => ele.map(ele => ele.dataValues))
+        .catch(err => console.error(err));
     },
     getAddress: async () => {
       return await db.cafe

@@ -8,7 +8,7 @@ const s3 = require('../database/models/config/s3');
 
 const models = require('../database/models/index.js');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/user');
 const cafeRouter = require('./routes/cafe');
 
 const app = express();
@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/cafe', cafeRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -12,18 +12,20 @@ module.exports = {
         .catch(err => console.error(err));
       if (result === null) return 'Incorrect information'; // 아이디가 잘못되서 이상한 정보일때
       const dbPassword = result.dataValues.password;
+      const id = result.dataValues.id;
       const hashPassword = crypto
         .createHash('sha512')
         .update(password + process.env.password)
         .digest('hex');
 
       if (dbPassword === hashPassword) {
-        const token = jwt.sign(
+        const token = await jwt.sign(
           {
+            id: id,
             email: email
           },
           process.env.password,
-          { expiresIn: '60m' }
+          { expiresIn: '10m' }
         );
         return token;
       } else {
