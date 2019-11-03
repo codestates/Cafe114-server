@@ -22,13 +22,20 @@ module.exports = {
       }
     },
     getFavorites: async id => {
-      const userFavorites = await db.userLikeCafe
+      return await db.userLikeCafe
         .findAll({
           where: { userId: id }
         })
         .then(ele => ele.map(ele => ele.dataValues.cafeId))
         .catch(err => console.error(err));
-      return userFavorites;
+    },
+    checkFavorite: async (userId, cafeId) => {
+      return await db.userLikeCafe
+        .findOne({
+          where: { userId: userId, cafeId: cafeId }
+        })
+        .then(ele => (ele === null ? false : true))
+        .catch(err => console.error(err));
     }
   }
 };
