@@ -50,9 +50,20 @@ module.exports = {
                 'https://cafe114.s3.ap-northeast-2.amazonaws.com/' + ele.Key // s3의 key만 붙이면 s3주소완성
             )
         )
-        .then(filtered => {
+        .then(async filtered => {
           result.images = filtered; // cafe에서 받은 데이터에 images key로 배열 형태의 value추가해서
-          res.send(result); // result로 반환한다
+          const token = req.cookies.userToken;
+          if (!token) {
+            res.send(result);
+          } else {
+            const decodedToken = jwt.verify(token, process.env.password);
+            const checkUserFavorite = await userModel.user.checkFavorite(
+              decodedToken.id,
+              req.params.id
+            );
+            result.favorite = checkUserFavorite;
+            res.send(result); // result로 반환한다
+          }
         })
         .catch(err => console.error(err));
     }
