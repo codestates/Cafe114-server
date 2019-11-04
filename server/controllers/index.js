@@ -21,15 +21,15 @@ module.exports = {
       res.send('Available email');
     },
     signIn: async (req, res) => {
-      let token = await models.index.signIn(req.body);
+      const { email, password } = req.body;
+      let token = await models.index.signIn(email, password);
       console.log('token', token);
       console.log('typeof token', typeof token);
       if (token === 'Incorrect information') {
         res.status(400).send('Failed login');
       }
-      res.cookie('userToken', token); // 유저의 cookie에 토큰 정보 심어주기
-      res.json({ token: token }); // token 정보 반환히기
-      // res.redirect('/user/login');
+      res.cookie('userToken', token, { httpOnly: true }); // 유저의 cookie에 토큰 정보 심어주기
+      res.redirect('/cafe');
     },
     signOut: async (req, res) => {
       res.clearCookie('userToken');

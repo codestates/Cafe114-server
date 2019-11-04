@@ -5,8 +5,7 @@ require('dotenv').config();
 
 module.exports = {
   index: {
-    signIn: async body => {
-      const { email, password } = body;
+    signIn: async (email, password) => {
       const result = await db.users
         .findOne({ where: { email: email } })
         .catch(err => console.error(err));
