@@ -42,8 +42,12 @@ console.log('s3 connect region : ', s3.config.region);
 //   region: 'ap-northeast-2'
 // });
 
+const corsOptions = {
+  origin: '*',
+  credentials: true
+};
+app.use(cors(corsOptions));
 app.use(cookieParser());
-app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
