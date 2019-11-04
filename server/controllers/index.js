@@ -26,10 +26,10 @@ module.exports = {
       console.log('token', token);
       console.log('typeof token', typeof token);
       if (token === 'Incorrect information') {
-        res.status(400).send('Failed login');
+        res.send('Failed login');
       }
-      res.cookie('userToken', token, { httpOnly: true }); // 유저의 cookie에 토큰 정보 심어주기
-      res.redirect('/cafe');
+      res.cookie('userToken', token, { httpOnly: true });
+      res.json({ token: token }); // 유저의 cookie에 토큰 정보 심어주기;
     },
     signOut: async (req, res) => {
       res.clearCookie('userToken');
