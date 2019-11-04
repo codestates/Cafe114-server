@@ -42,9 +42,9 @@ console.log('s3 connect region : ', s3.config.region);
 //   region: 'ap-northeast-2'
 // });
 
-app.use(cors());
 app.all('/*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  console.log('req.headers.origin', req.headers.origin);
   res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE');
   res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
   res.header('Access-Control-Allow-Credentials', true);

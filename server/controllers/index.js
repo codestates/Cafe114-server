@@ -22,6 +22,7 @@ module.exports = {
     },
     signIn: async (req, res) => {
       const { email, password } = req.body;
+      console.log('req.headers.origin', req.headers.origin);
       let token = await models.index.signIn(email, password);
       console.log('token', token);
       console.log('typeof token', typeof token);
