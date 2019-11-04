@@ -42,16 +42,17 @@ console.log('s3 connect region : ', s3.config.region);
 //   region: 'ap-northeast-2'
 // });
 
+app.use(cookieParser());
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/cafe', cafeRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
