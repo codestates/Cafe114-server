@@ -20,15 +20,8 @@ module.exports = {
       });
     }
   },
-  response: (
-    status = 200,
-    success = true,
-    isLogin,
-    error = null,
-    data = null
-  ) => {
+  response: (success = true, isLogin, error = null, data = null) => {
     return {
-      status: status,
       success: success,
       isLogin: isLogin,
       error: error,

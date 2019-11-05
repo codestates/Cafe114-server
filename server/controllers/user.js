@@ -5,29 +5,11 @@ require('dotenv').config();
 
 module.exports = {
   user: {
-    favorites: async (req, res) => {
-      console.log('req.decodedId', req.decodedId);
-      const { cafeId } = req.body;
-      if (!req.decodedId) {
-        res
-          .status(200)
-          .json(response(200, false, false, 'Not logged in', null));
-      } else {
-        const result = await userModel.addFavorites(req.decodedId, cafeId);
-        if (result === 'Already added') {
-          res
-            .status(200)
-            .json(response(200, false, true, 'Already added', null));
-        } else {
-          res.json(response(200, true, true, null, 'Add favorites'));
-        }
-      }
-    },
     mypage: async (req, res) => {
       console.log('req.decodedId', req.decodedId);
       const userId = req.decodedId;
       if (!req.decodedId) {
-        res.json(response(200, false, false, 'Not logged in', null));
+        res.json(response(false, false, 'Not logged in', null));
       } else {
         const userData = await userModel.user.getMyInfo(userId);
         const {
@@ -54,7 +36,42 @@ module.exports = {
           phone: phone,
           favoriteCafe: userCafeData
         };
-        res.json(response(200, true, true, null, result));
+        res.json(response(true, true, null, result));
+      }
+    },
+    favorites: async (req, res) => {
+      console.log('req.decodedId', req.decodedId);
+      const { cafeId } = req.body;
+      if (!req.decodedId) {
+        res.json(response(false, false, 'Not logged in', null));
+      } else {
+        const result = await userModel.user.addFavorites(req.decodedId, cafeId);
+        if (result === 'Already added') {
+          res.json(response(false, true, 'Already added', null));
+        } else {
+          res.json(response(true, true, null, 'Add favorites'));
+        }
+      }
+    },
+    deleteFavorite: async (req, res) => {
+      const { cafeId } = req.body;
+      const userId = req.decodedId;
+      if (!userId) {
+        res.json(response(false, false, 'Not logged in', null));
+      } else {
+        const deletedItem = await userModel.user.deleteFavorite(userId, cafeId);
+        if (deletedItem) {
+          res.json(
+            response(
+              true,
+              true,
+              null,
+              `Deleted favorite, cafe id : ${deletedItem}`
+            )
+          );
+        } else {
+          res.json(response(false, true, 'Already deleted', null));
+        }
       }
     }
   }
