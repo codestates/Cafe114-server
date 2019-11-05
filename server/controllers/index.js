@@ -6,14 +6,16 @@ module.exports = {
       res.send('Welcome to Cafe114');
     },
     signUp: async (req, res) => {
-      const { email, password } = req.body;
-      let result = await models.index.signUp(email, password);
+      const { name, email, password, sex } = req.body;
+      let result = await models.index.signUp(name, email, password, sex);
       if (result.errors) {
         res
           .status(200)
           .json(response(200, false, false, result.errors[0].message, null));
       } else {
-        res.json(response(200, true, false, null, 'Completed signup'));
+        res
+          .status(200)
+          .json(response(200, true, false, null, 'Completed signup'));
       }
     },
     checkEmail: async (req, res) => {
@@ -38,7 +40,10 @@ module.exports = {
           maxAge: 2 * 1000 * 60 * 60,
           httpOnly: true
         });
-        res.json(response(200, true, true, null, 'Token is issued')); // 유저의 cookie에 토큰 정보 심어주기;
+        console.log('object', object);
+        res
+          .status(200)
+          .json(response(200, true, true, null, 'Token is issued')); // 유저의 cookie에 토큰 정보 심어주기;
       }
     },
     signOut: async (req, res) => {
