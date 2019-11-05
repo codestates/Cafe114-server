@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const cors = require('cors');
 const s3 = require('../database/models/config/s3');
 
 const models = require('../database/models/index.js');
@@ -44,7 +43,6 @@ console.log('s3 connect region : ', s3.config.region);
 
 app.all('/*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', req.headers.origin);
-  console.log('req.headers.origin', req.headers.origin);
   res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE');
   res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
   res.header('Access-Control-Allow-Credentials', true);

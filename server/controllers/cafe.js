@@ -1,38 +1,36 @@
 const models = require('../models/cafe');
 const userModel = require('../models/user');
 const s3 = require('../../database/models/config/s3');
-const jwt = require('jsonwebtoken');
+const response = require('../middlewares/auth').response;
 require('dotenv').config();
 
 module.exports = {
   cafe: {
     get: async (req, res) => {
-      const token = req.cookies.userToken;
+      console.log('현재사용자의 id는', req.decodedId);
       const result = await models.cafe.get();
-      if (!token) {
-        res.send(result);
-      } else {
-        const decodedToken = jwt.verify(token, process.env.password);
-        const userFavorites = await userModel.user.getFavorites(
-          decodedToken.id
+      if (!req.decodedId) {
+        res.json(
+          response(200, true, false, null, { favorites: null, data: result })
         );
-        if (userFavorites) {
-          result.unshift(userFavorites);
-          res.send(result);
-        } else {
-          result.unshift([]);
-          res.send(result);
-        }
+      } else {
+        const userFavorites = await userModel.user.getFavorites(req.decodedId);
+        res.json(
+          response(200, true, true, null, {
+            favorites: !userFavorites.length ? [] : userFavorites,
+            data: result
+          })
+        );
       }
     },
     getAddress: async (req, res) => {
       const result = await models.cafe.getAddress();
-      res.send(result);
+      res.json(response(200, true, true, null, result));
     },
     getId: async (req, res) => {
+      console.log(req.decodedId);
       const searchId = '/' + req.params.id + '-'; // searchId에 '/' 문자열 '-'룰 붙였다 s3에서 찾기위한 로직 예 /55-
-      let result = await models.cafe.getId(req.params.id); // 우선 cafe db에서 id와 일치하는 데이터베이스를 가져온다.
-      result = result[0].dataValues; // sequelize에서 제공하는 데이터형식이라 배열의 0번째 인덱스의 dataValues object만 가져온다.
+      let result = await models.cafe.getId(req.params.id); // cafe db에서 id와 일치하는 데이터베이스를 가져온다.
       return s3
         .listObjectsV2({
           Bucket: 'cafe114',
@@ -52,17 +50,15 @@ module.exports = {
         )
         .then(async filtered => {
           result.images = filtered; // cafe에서 받은 데이터에 images key로 배열 형태의 value추가해서
-          const token = req.cookies.userToken;
-          if (!token) {
-            res.send(result);
+          if (!req.decodedId) {
+            res.json(response(200, true, false, null, result));
           } else {
-            const decodedToken = jwt.verify(token, process.env.password);
             const checkUserFavorite = await userModel.user.checkFavorite(
-              decodedToken.id,
+              req.decodedId,
               req.params.id
             );
             result.favorite = checkUserFavorite;
-            res.send(result); // result로 반환한다
+            res.json(response(200, true, true, null, result)); // result로 반환한다
           }
         })
         .catch(err => console.error(err));

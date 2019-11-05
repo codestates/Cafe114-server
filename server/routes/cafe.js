@@ -1,5 +1,8 @@
 const controller = require('../controllers/cafe');
 const router = require('express').Router();
+const checkToken = require('../middlewares/auth').checkToken;
+
+router.use('/', checkToken);
 
 router.get('/', controller.cafe.get);
 

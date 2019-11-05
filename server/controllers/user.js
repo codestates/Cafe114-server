@@ -1,22 +1,25 @@
 const models = require('../models/user');
 const jwt = require('jsonwebtoken');
+const response = require('../middlewares/auth').response;
 require('dotenv').config();
+
 module.exports = {
   user: {
     favorites: async (req, res) => {
-      const token = req.cookies.userToken;
+      console.log('req.decodedId', req.decodedId);
       const { cafeId } = req.body;
-      // console.log('token', token);
-      if (!token) {
-        res.status(400).send('Invalid access');
+      if (!req.decodedId) {
+        res
+          .status(400)
+          .json(response(400, false, false, 'Not logged in', null));
       } else {
-        const decodedToken = jwt.verify(token, process.env.password);
-        // console.log('decodedToken', decodedToken);
-        const result = await models.user.addFavorites(decodedToken.id, cafeId);
+        const result = await models.user.addFavorites(req.decodedId, cafeId);
         if (result === 'Already added') {
-          res.status(400).send('Already added');
+          res
+            .status(400)
+            .json(response(400, false, true, 'Already added', null));
         } else {
-          res.send('Success');
+          res.json(response(200, true, true, null, 'Add favorites'));
         }
       }
     }
