@@ -5,6 +5,11 @@ require('dotenv').config();
 
 module.exports = {
   user: {
+    getMyInfo: async userId => {
+      return await db.user
+        .findOne({ where: { id: userId } })
+        .then(result => (undefined ? null : result.dataValues));
+    },
     addFavorites: async (id, cafeId) => {
       const result = await db.userLikeCafe
         .findOne({ where: { userId: id, cafeId: cafeId } })
