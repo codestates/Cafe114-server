@@ -3,7 +3,8 @@ module.exports = function(sequelize, DataTypes) {
     'users',
     {
       name: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
       },
       email: {
         type: DataTypes.STRING,
@@ -22,10 +23,14 @@ module.exports = function(sequelize, DataTypes) {
         unique: true
       },
       birth: {
-        type: DataTypes.DATEONLY
+        type: DataTypes.STRING(4)
       },
       sex: {
-        type: DataTypes.TINYINT(1)
+        type: DataTypes.TINYINT(1),
+        allowNull: false
+      },
+      phone: {
+        type: DataTypes.STRING
       },
       agreementAd: {
         type: DataTypes.TINYINT(1)

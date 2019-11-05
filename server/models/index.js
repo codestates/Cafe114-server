@@ -31,15 +31,17 @@ module.exports = {
         return 'Incorrect information';
       }
     },
-    signUp: async (email, password) => {
+    signUp: async (name, email, password, sex) => {
       const hashPassword = crypto
         .createHash('sha512')
         .update(password + process.env.password)
         .digest('hex');
       return await db.users
         .create({
+          name: name,
           email: email,
-          password: hashPassword
+          password: hashPassword,
+          sex: sex
         })
         .catch(err => err);
     },

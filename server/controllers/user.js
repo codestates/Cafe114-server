@@ -30,10 +30,31 @@ module.exports = {
         res.json(response(200, false, false, 'Not logged in', null));
       } else {
         const userData = await userModel.user.getMyInfo(userId);
+        const {
+          name,
+          email,
+          nickname,
+          birth,
+          sex,
+          agreementAd,
+          location,
+          phone
+        } = userData;
         const userCafeData = await userModel.user.getFavorites(userId);
         console.log('userData,', userData);
         console.log('userCafeData', userCafeData);
-        res.json(response(200, true, true, null, null));
+        const result = {
+          name: name,
+          email: email,
+          nickname: nickname,
+          birth: birth,
+          sex: sex,
+          agreementAd: agreementAd,
+          location: location,
+          phone: phone,
+          favoriteCafe: userCafeData
+        };
+        res.json(response(200, true, true, null, result));
       }
     }
   }
