@@ -40,6 +40,13 @@ module.exports = {
         })
         .then(ele => (ele === null ? false : true))
         .catch(err => console.error(err));
+    },
+    deleteFavorite: async (userId, cafeId) => {
+      return await db.userLikeCafe
+        .destroy({
+          where: { userId: userId, cafeId: cafeId }
+        })
+        .catch(err => err);
     }
   }
 };

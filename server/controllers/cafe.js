@@ -10,15 +10,13 @@ module.exports = {
       console.log('현재사용자의 id는', req.decodedId);
       const result = await models.cafe.get();
       if (!req.decodedId) {
-        res
-          .status(200)
-          .json(
-            response(200, true, false, null, { favorites: null, data: result })
-          );
+        res.json(
+          response(true, false, null, { favorites: null, data: result })
+        );
       } else {
         const userFavorites = await userModel.user.getFavorites(req.decodedId);
-        res.status(200).json(
-          response(200, true, true, null, {
+        res.json(
+          response(true, true, null, {
             favorites: !userFavorites.length ? [] : userFavorites,
             result: result
           })
@@ -27,7 +25,7 @@ module.exports = {
     },
     getAddress: async (req, res) => {
       const result = await models.cafe.getAddress();
-      res.status(200).json(response(200, true, true, null, result));
+      res.json(response(true, true, null, result));
     },
     getId: async (req, res) => {
       console.log(req.decodedId);
@@ -53,14 +51,14 @@ module.exports = {
         .then(async filtered => {
           result.images = filtered; // cafe에서 받은 데이터에 images key로 배열 형태의 value추가해서
           if (!req.decodedId) {
-            res.status(200).json(response(200, true, false, null, result));
+            res.json(response(true, false, null, result));
           } else {
             const checkUserFavorite = await userModel.user.checkFavorite(
               req.decodedId,
               req.params.id
             );
             result.favorite = checkUserFavorite;
-            res.status(200).json(response(200, true, true, null, result)); // result로 반환한다
+            res.json(response(true, true, null, result)); // result로 반환한다
           }
         })
         .catch(err => console.error(err));
