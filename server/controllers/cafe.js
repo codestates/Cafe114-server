@@ -18,7 +18,7 @@ module.exports = {
         res.json(
           response(200, true, true, null, {
             favorites: !userFavorites.length ? [] : userFavorites,
-            data: result
+            result: result
           })
         );
       }
