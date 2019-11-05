@@ -2,6 +2,9 @@ module.exports = function(sequelize, DataTypes) {
   let users = sequelize.define(
     'users',
     {
+      name: {
+        type: DataTypes.STRING
+      },
       email: {
         type: DataTypes.STRING,
         unique: true,
@@ -17,6 +20,15 @@ module.exports = function(sequelize, DataTypes) {
       nickname: {
         type: DataTypes.STRING,
         unique: true
+      },
+      birth: {
+        type: DataTypes.DATEONLY
+      },
+      sex: {
+        type: DataTypes.TINYINT(1)
+      },
+      agreementAd: {
+        type: DataTypes.TINYINT(1)
       },
       location: {
         type: DataTypes.TINYINT(1)

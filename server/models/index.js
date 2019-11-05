@@ -24,15 +24,14 @@ module.exports = {
             email: email
           },
           process.env.password,
-          { expiresIn: '10m' }
+          { expiresIn: '120m' }
         );
         return token;
       } else {
         return 'Incorrect information';
       }
     },
-    signUp: async body => {
-      const { email, password } = body;
+    signUp: async (email, password) => {
       const hashPassword = crypto
         .createHash('sha512')
         .update(password + process.env.password)
@@ -42,7 +41,7 @@ module.exports = {
           email: email,
           password: hashPassword
         })
-        .catch(err => console.error(err));
+        .catch(err => err);
     },
     checkEmail: async email => {
       return await db.users

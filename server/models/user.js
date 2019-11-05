@@ -10,13 +10,12 @@ module.exports = {
         .findOne({ where: { userId: id, cafeId: cafeId } })
         .catch(err => console.error(err));
       if (!result) {
-        const addLike = await db.userLikeCafe
+        return await db.userLikeCafe
           .create({
             userId: id,
             cafeId: cafeId
           })
           .catch(err => console.error(err));
-        return addLike;
       } else {
         return 'Already added';
       }

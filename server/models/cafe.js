@@ -20,9 +20,10 @@ module.exports = {
     },
     getId: async cafeId => {
       return await db.cafe
-        .findAll({
+        .findOne({
           where: { id: cafeId }
         })
+        .then(result => result.dataValues)
         .catch(err => console.error(err));
     }
   }

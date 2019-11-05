@@ -10,5 +10,5 @@ router.post('/signup/email', controller.index.checkEmail);
 
 router.post('/signin', controller.index.signIn);
 
-router.post('/signout', controller.index.signOut);
+router.get('/signout', controller.index.signOut);
 module.exports = router;
