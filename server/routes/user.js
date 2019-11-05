@@ -12,4 +12,6 @@ router.use('/', checkToken);
 // 좋아하는 카페 추가하기
 router.post('/favorites', controller.user.favorites);
 
+router.get('/mypage', controller.user.mypage);
+
 module.exports = router;

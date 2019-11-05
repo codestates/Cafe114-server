@@ -10,8 +10,8 @@ module.exports = {
       let result = await models.index.signUp(email, password);
       if (result.errors) {
         res
-          .status(400)
-          .json(response(400, false, false, result.errors[0].message, null));
+          .status(200)
+          .json(response(200, false, false, result.errors[0].message, null));
       } else {
         res.json(response(200, true, false, null, 'Completed signup'));
       }
@@ -22,8 +22,8 @@ module.exports = {
         res.json(response(200, true, false, null, 'Available email'));
       }
       res
-        .status(400)
-        .send(response(400, false, false, 'Duplicated email', result.email));
+        .status(200)
+        .send(response(200, false, false, 'Duplicated email', result.email));
     },
     signIn: async (req, res) => {
       const { email, password } = req.body;
@@ -31,8 +31,8 @@ module.exports = {
       if (token === 'Incorrect information') {
         res.clearCookie('userToken');
         res
-          .status(400)
-          .json(response(400, false, false, 'Token is not issued', null));
+          .status(200)
+          .json(response(200, false, false, 'Token is not issued', null));
       } else {
         res.cookie('userToken', token, {
           maxAge: 2 * 1000 * 60 * 60,
