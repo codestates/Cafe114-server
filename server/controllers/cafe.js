@@ -11,7 +11,7 @@ module.exports = {
       const result = await models.cafe.get();
       if (!req.decodedId) {
         res.json(
-          response(true, false, null, { favorites: null, data: result })
+          response(true, false, null, { favorites: null, result: result })
         );
       } else {
         const userFavorites = await userModel.user.getFavorites(req.decodedId);

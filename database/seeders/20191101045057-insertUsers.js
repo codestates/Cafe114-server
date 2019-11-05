@@ -27,24 +27,24 @@ module.exports = {
         nickname: null,
         birth: '1991',
         sex: true,
-        phone: '010-4292-6693',
-        agreementAd: false,
-        location: false,
+        phone: null,
+        agreementAd: null,
+        location: null,
         createdAt: '2019-11-01 00:00:00',
         updatedAt: '2019-11-01 00:00:00'
       },
       {
         id: 3,
         name: '이영민',
-        email: 'youngmin@gmail.com',
+        email: 'miniyoung37@gmail.com',
         password:
           '69f3995f63225852c4d60993bc4561d156b9f6a688ca197eda935bff7db7c3081aa0b2406f8666efe413f1fa4df0d285ea85c2dd8baa065f7cbfb330b2242868',
-        nickname: 'ym',
+        nickname: null,
         birth: '2000',
         sex: false,
         phone: null,
-        agreementAd: false,
-        location: false,
+        agreementAd: null,
+        location: null,
         createdAt: '2019-11-01 00:00:00',
         updatedAt: '2019-11-01 00:00:00'
       }
