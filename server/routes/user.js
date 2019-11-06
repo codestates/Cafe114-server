@@ -10,9 +10,10 @@ router.get('/', function(req, res, next) {
 
 router.use('/', checkToken);
 // 좋아하는 카페 추가하기
-router.get('/mypage', controller.user.mypage);
+router.get('/mypage', controller.get.mypage);
 
-router.post('/favorites', controller.user.favorites);
+router.post('/favorites', controller.post.favorites);
 
-router.delete('/favorites', controller.user.deleteFavorite);
+router.delete('/favorites', controller.delete.deleteFavorite);
+
 module.exports = router;

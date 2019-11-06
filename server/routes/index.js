@@ -3,18 +3,18 @@ const checkToken = require('../middlewares/auth').checkToken;
 const router = require('express').Router();
 
 /* GET home page. */
-router.get('/', controller.index.get);
+router.get('/', controller.get.mainPage);
 
-router.post('/signup', controller.index.signUp);
+router.get('/signout', controller.get.signOut);
 
-router.post('/signup/email', controller.index.checkEmail);
+router.post('/signup', controller.post.signUp);
 
-router.post('/signin', controller.index.signIn);
+router.post('/signup/email', controller.post.checkEmail);
 
-router.get('/signout', controller.index.signOut);
+router.post('/signin', controller.post.signIn);
 
 router.use('/signin/kakao', checkToken);
 
-router.post('/signin/kakao', controller.index.kakao);
+router.post('/signin/kakao', controller.post.kakao);
 
 module.exports = router;
