@@ -6,8 +6,14 @@ module.exports = {
       res.send('Welcome to Cafe114');
     },
     signUp: async (req, res) => {
-      const { name, email, password, sex } = req.body;
-      let result = await models.index.signUp(name, email, password, sex);
+      const { name, email, password, sex, agreementAd } = req.body;
+      let result = await models.index.signUp(
+        name,
+        email,
+        password,
+        sex,
+        agreementAd
+      );
       if (result.errors) {
         res.json(response(false, false, result.errors[0].message, null));
       } else {
@@ -39,6 +45,15 @@ module.exports = {
       // req.cookies.userToken = null;
       res.clearCookie('userToken');
       res.json(response(true, false, null, 'Sign out'));
+    },
+    kakao: async (req, res) => {
+      const kakaoId = req.body.kakao.id;
+      const kakaoUserToken = await models.index.kakao(kakaoId);
+      res.cookie('userToken', kakaoUserToken, {
+        maxAge: 2 * 1000 * 60 * 60,
+        httpOnly: true
+      });
+      res.json(response(true, true, null, 'Token is issued for kakao user'));
     }
   }
 };

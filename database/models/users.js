@@ -3,20 +3,17 @@ module.exports = function(sequelize, DataTypes) {
     'users',
     {
       name: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING
       },
       email: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false,
         validate: {
           isEmail: true
         }
       },
       password: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING
       },
       nickname: {
         type: DataTypes.STRING,
@@ -26,8 +23,7 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING(4)
       },
       sex: {
-        type: DataTypes.TINYINT(1),
-        allowNull: false
+        type: DataTypes.TINYINT(1)
       },
       phone: {
         type: DataTypes.STRING
@@ -37,6 +33,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       location: {
         type: DataTypes.TINYINT(1)
+      },
+      kakaoId: {
+        type: DataTypes.STRING
       }
     },
     {
