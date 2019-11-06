@@ -9,9 +9,17 @@ module.exports = {
           cafeId: cafeId,
           comment: comment
         })
-        .then(result => result.dataValues)
-        .catch(err => err);
-      return await db.comments.findAll({ where: { cafeId: cafeId } });
+        .catch(err => console.error(err));
+      return await db.comments
+        .findAll({ where: { cafeId: cafeId } })
+        .catch(err => console.error(err));
+    }
+  },
+  get: {
+    comment: async cafeId => {
+      return await db.comments
+        .findAll({ where: { cafeId: cafeId } })
+        .catch(err => console.error(err));
     }
   }
 };

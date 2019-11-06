@@ -63,6 +63,16 @@ module.exports = {
           }
         })
         .catch(err => console.error(err));
+    },
+    comment: async (req, res) => {
+      const userId = req.decodedId;
+      const { cafeId } = req.params;
+      if (userId) {
+        const getAllComments = await commentModel.get.comment(cafeId);
+        res.json(response(true, true, null, getAllComments));
+      } else {
+        res.json(response(false, false, 'Not logged in', null));
+      }
     }
   },
   post: {
