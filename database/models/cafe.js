@@ -56,7 +56,6 @@ module.exports = function(sequelize, DataTypes) {
   );
   cafe.associate = function(models) {
     cafe.hasMany(models.comments);
-    cafe.hasMany(models.images);
     cafe.belongsToMany(models.users, { through: models.userLikeCafe });
   };
   return cafe;
