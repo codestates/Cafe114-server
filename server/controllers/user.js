@@ -44,7 +44,6 @@ module.exports = {
     favorites: async (req, res) => {
       console.log('req.decodedId', req.decodedId);
       const { cafeId } = req.body;
-      console.log('object', object);
       if (!req.decodedId) {
         res.json(response(false, false, 'Not logged in', null));
       } else {
