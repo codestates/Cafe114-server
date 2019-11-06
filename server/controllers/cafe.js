@@ -1,14 +1,15 @@
-const models = require('../models/cafe');
+const cafeModel = require('../models/cafe');
 const userModel = require('../models/user');
+const commentModel = require('../models/comment.js');
 const s3 = require('../../database/models/config/s3');
 const response = require('../middlewares/auth').response;
 require('dotenv').config();
 
 module.exports = {
-  cafe: {
-    get: async (req, res) => {
-      console.log('현재사용자의 id는', req.decodedId);
-      const result = await models.cafe.get();
+  get: {
+    cafeInfo: async (req, res) => {
+      console.log('post, get, cafe 현재사용자의 id는', req.decodedId);
+      const result = await cafeModel.cafe.get();
       if (!req.decodedId) {
         res.json(
           response(true, false, null, { favorites: null, result: result })
@@ -23,14 +24,14 @@ module.exports = {
         );
       }
     },
-    getAddress: async (req, res) => {
-      const result = await models.cafe.getAddress();
+    cafeAddress: async (req, res) => {
+      const result = await cafeModel.cafe.getAddress();
       res.json(response(true, true, null, result));
     },
-    getId: async (req, res) => {
-      console.log(req.decodedId);
+    cafeId: async (req, res) => {
+      console.log('post, getId, 현재 사용자의 id는', req.decodedId);
       const searchId = '/' + req.params.id + '-'; // searchId에 '/' 문자열 '-'룰 붙였다 s3에서 찾기위한 로직 예 /55-
-      let result = await models.cafe.getId(req.params.id); // cafe db에서 id와 일치하는 데이터베이스를 가져온다.
+      let result = await cafeModel.cafe.getId(req.params.id); // cafe db에서 id와 일치하는 데이터베이스를 가져온다.
       return s3
         .listObjectsV2({
           Bucket: 'cafe114',
@@ -62,6 +63,23 @@ module.exports = {
           }
         })
         .catch(err => console.error(err));
+    }
+  },
+  post: {
+    comment: async (req, res) => {
+      const userId = req.decodedId;
+      const { comment } = req.body;
+      const { cafeId } = req.params;
+      if (userId) {
+        const createAndGetAllComments = await commentModel.create.comment(
+          userId,
+          cafeId,
+          comment
+        );
+        res.json(response(true, true, null, createAndGetAllComments));
+      } else {
+        res.json(response(false, false, 'Not logged in', null));
+      }
     }
   }
 };

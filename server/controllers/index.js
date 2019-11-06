@@ -1,10 +1,17 @@
 const models = require('../models/index');
 const response = require('../middlewares/auth').response;
 module.exports = {
-  index: {
-    get: (req, res) => {
+  get: {
+    mainPage: (req, res) => {
       res.send('Welcome to Cafe114');
     },
+    signOut: async (req, res) => {
+      // req.cookies.userToken = null;
+      res.clearCookie('userToken');
+      res.json(response(true, false, null, 'Sign out'));
+    }
+  },
+  post: {
     signUp: async (req, res) => {
       const { name, email, password, sex, agreementAd } = req.body;
       let result = await models.index.signUp(
@@ -41,11 +48,7 @@ module.exports = {
         res.json(response(true, true, null, 'Token is issued')); // 유저의 cookie에 토큰 정보 심어주기;
       }
     },
-    signOut: async (req, res) => {
-      // req.cookies.userToken = null;
-      res.clearCookie('userToken');
-      res.json(response(true, false, null, 'Sign out'));
-    },
+
     kakao: async (req, res) => {
       const kakaoId = req.body.kakao.id;
       const kakaoUserToken = await models.index.kakao(kakaoId);

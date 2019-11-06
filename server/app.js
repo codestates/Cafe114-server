@@ -26,14 +26,14 @@ app.use(express.static('public', options));
 models.sequelize // AWS RDS mysql 연결해주기
   .sync()
   .then(() => {
-    console.log('연결성공');
+    console.log('mysql db is connected');
   })
   .catch(err => {
-    console.log('연결실패');
+    console.log('mysql db is not connected, check server');
     console.error(err);
   });
 
-console.log('s3 connect region : ', s3.config.region);
+console.log('s3 successfully connected, region is : ', s3.config.region);
 // AWS S3 연결해주기
 // AWS.config.update({
 //   accessKeyId: process.env.AWS_ACCESS_KEY_ID,

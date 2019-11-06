@@ -4,7 +4,7 @@ const response = require('../middlewares/auth').response;
 require('dotenv').config();
 
 module.exports = {
-  user: {
+  get: {
     mypage: async (req, res) => {
       console.log('req.decodedId', req.decodedId);
       const userId = req.decodedId;
@@ -38,10 +38,13 @@ module.exports = {
         };
         res.json(response(true, true, null, result));
       }
-    },
+    }
+  },
+  post: {
     favorites: async (req, res) => {
       console.log('req.decodedId', req.decodedId);
       const { cafeId } = req.body;
+      console.log('object', object);
       if (!req.decodedId) {
         res.json(response(false, false, 'Not logged in', null));
       } else {
@@ -52,7 +55,9 @@ module.exports = {
           res.json(response(true, true, null, 'Add favorites'));
         }
       }
-    },
+    }
+  },
+  delete: {
     deleteFavorite: async (req, res) => {
       const { cafeId } = req.body;
       const userId = req.decodedId;
