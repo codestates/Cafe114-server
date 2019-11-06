@@ -20,8 +20,7 @@ module.exports = {
       if (dbPassword === hashPassword) {
         const token = await jwt.sign(
           {
-            id: id,
-            email: email
+            id: id
           },
           process.env.password,
           { expiresIn: '120m' }
@@ -49,6 +48,38 @@ module.exports = {
       return await db.users
         .findOne({ where: { email: email } })
         .catch(err => console.error(err));
+    },
+    kakao: async kakaoId => {
+      const kakaoUserId = await db.users
+        .findOne({ where: { kakaoId: kakaoId } })
+        .then(async result => {
+          if (!result) {
+            await db.users.create({ kakaoId: kakaoId });
+            return db.users
+              .findOne({ where: { kakaoId: kakaoId } })
+              .then(result => {
+                console.log(
+                  '새로 가입한 카카오유저입니다 이분은',
+                  result.dataValues.id
+                );
+                return result.dataValues.id;
+              });
+          } else {
+            console.log(
+              '이미 가입한 카카오유저입니다 이분은',
+              result.dataValues.id
+            );
+            return result.dataValues.id;
+          }
+        });
+      const token = await jwt.sign(
+        {
+          id: kakaoUserId
+        },
+        process.env.password,
+        { expiresIn: '120m' }
+      );
+      return token;
     }
   }
 };

@@ -15,6 +15,7 @@ module.exports = {
         phone: null,
         agreementAd: null,
         location: null,
+        kakaoID: null,
         createdAt: '2019-11-01 00:00:00',
         updatedAt: '2019-11-01 00:00:00'
       },
@@ -30,6 +31,7 @@ module.exports = {
         phone: null,
         agreementAd: null,
         location: null,
+        kakaoID: null,
         createdAt: '2019-11-01 00:00:00',
         updatedAt: '2019-11-01 00:00:00'
       },
@@ -45,6 +47,7 @@ module.exports = {
         phone: null,
         agreementAd: null,
         location: null,
+        kakaoID: null,
         createdAt: '2019-11-01 00:00:00',
         updatedAt: '2019-11-01 00:00:00'
       }
