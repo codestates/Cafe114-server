@@ -3,7 +3,10 @@ const checkToken = require('../middlewares/auth').checkToken;
 const router = require('express').Router();
 
 /* GET home page. */
-router.get('/', controller.get.mainPage);
+router.get('/', (req, res) => {
+  console.log('__dirname', __dirname);
+  res.sendFile(__dirname + '/index.html');
+});
 
 router.get('/signout', controller.get.signOut);
 
