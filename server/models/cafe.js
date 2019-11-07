@@ -4,7 +4,16 @@ module.exports = {
   cafe: {
     get: async () => {
       return await db.cafe
-        .findAll()
+        .findAll({
+          include: [
+            {
+              model: db.comments,
+              as: 'comments',
+              limit: 1,
+              attributes: [['createdAt', 'DESC']]
+            }
+          ]
+        })
         .then(ele => ele.map(ele => ele.dataValues))
         .catch(err => console.error(err));
     },

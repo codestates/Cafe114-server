@@ -22,6 +22,9 @@ module.exports = {
   },
   get: {
     comment: async cafeId => {
+      // return await db.comments
+      //   .findAll({ where: { cafeId: cafeId } })
+      //   .catch(err => console.error(err));
       return await db.comments
         .findAll({
           where: { cafeId: cafeId },

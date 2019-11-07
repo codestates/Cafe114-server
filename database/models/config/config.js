@@ -7,7 +7,12 @@ module.exports = {
     database: process.env.database,
     host: process.env.host,
     dialect: 'mysql',
-    timezone: '+09:00'
+    timezone: '+09:00',
+    dialectOptions: {
+      charset: 'utf8mb4',
+      dateStrings: true,
+      typeCast: true
+    }
   },
   test: {
     username: 'root',
@@ -22,6 +27,11 @@ module.exports = {
     database: process.env.database,
     host: process.env.host,
     dialect: 'mysql',
-    timezone: '+09:00'
+    timezone: '+09:00',
+    dialectOptions: {
+      charset: 'utf8mb4',
+      dateStrings: true,
+      typeCast: true
+    }
   }
 };
