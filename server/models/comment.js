@@ -11,14 +11,24 @@ module.exports = {
         })
         .catch(err => console.error(err));
       return await db.comments
-        .findAll({ where: { cafeId: cafeId } })
+        .findAll({
+          where: { cafeId: cafeId },
+          include: [
+            { model: db.users, as: 'user', attributes: ['name', 'email'] }
+          ]
+        })
         .catch(err => console.error(err));
     }
   },
   get: {
     comment: async cafeId => {
       return await db.comments
-        .findAll({ where: { cafeId: cafeId } })
+        .findAll({
+          where: { cafeId: cafeId },
+          include: [
+            { model: db.users, as: 'user', attributes: ['name', 'email'] }
+          ]
+        })
         .catch(err => console.error(err));
     }
   }
