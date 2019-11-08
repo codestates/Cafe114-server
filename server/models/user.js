@@ -46,7 +46,7 @@ module.exports = {
         .destroy({
           where: { userId: userId, cafeId: cafeId }
         })
-        .catch(err => err);
+        .catch(err => console.error(err));
     }
   }
 };

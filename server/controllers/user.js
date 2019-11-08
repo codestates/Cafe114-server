@@ -1,5 +1,6 @@
 const userModel = require('../models/user');
 const cafeModel = require('../models/cafe');
+const commentModel = require('../models/comment');
 const response = require('../middlewares/auth').response;
 require('dotenv').config();
 
@@ -38,6 +39,16 @@ module.exports = {
         };
         res.json(response(true, true, null, result));
       }
+    },
+    myComment: async (req, res) => {
+      console.log('req.decodedId', req.decodedId);
+      const userId = req.decodedId;
+      if (!req.decodedId) {
+        res.json(response(false, false, 'Not logged in', null));
+      } else {
+        const myComments = await commentModel.get.myComment(userId);
+        res.json(response(true, true, null, myComments));
+      }
     }
   },
   post: {
@@ -75,6 +86,24 @@ module.exports = {
           );
         } else {
           res.json(response(false, true, 'Already deleted', null));
+        }
+      }
+    },
+    myComment: async (req, res) => {
+      const userId = req.decodedId;
+      const { commentId } = req.params;
+      if (!userId) {
+        res.json(response(false, false, 'Not logged in', null));
+      } else {
+        const deletedComment = await commentModel.delete.myComment(
+          userId,
+          commentId
+        );
+        console.log('deletedComment', deletedComment);
+        if (deletedComment) {
+          res.json(response(true, true, null, `Deleted this message`));
+        } else {
+          res.json(response(false, true, 'Already deleted this message', null));
         }
       }
     }
