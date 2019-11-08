@@ -35,7 +35,7 @@ server.listen(port, () => {
 const io = socketio(server);
 
 io.on('connection', async socket => {
-  console.log('connect client by socket.io, Hello Client');
+  console.log('connect client by socket.io, Hello Client!');
 
   // // TODO: 접속시 카페 데이터 제공
   // const cafeData = await cafeModel.cafe.get();
