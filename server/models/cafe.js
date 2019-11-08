@@ -10,7 +10,8 @@ module.exports = {
               model: db.comments,
               as: 'comments',
               limit: 1,
-              attributes: [['createdAt', 'DESC']]
+              attributes: ['createdAt'],
+              order: [['createdAt', 'DESC']]
             }
           ]
         })

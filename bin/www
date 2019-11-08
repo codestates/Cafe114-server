@@ -9,6 +9,8 @@ const debug = require('debug')('cafe114-server:server');
 const http = require('http');
 const socketio = require('socket.io');
 const db = require('../database/models');
+const cafeModel = require('../server/models/cafe');
+const commentModel = require('../server/models/comment');
 /**
  * Get port from environment and store in Express.
  */
@@ -29,23 +31,52 @@ const server = http.createServer(app);
 server.listen(port, () => {
   console.log('server listening on port ' + port);
 });
-
+// TODO: socket-io 서버 구현
 const io = socketio(server);
 
-io.on('connection', socket => {
+io.on('connection', async socket => {
   console.log('connect client by socket.io');
-  socket.on('postCommentClientToServer', async comment => {
+
+  // // TODO: 접속시 카페 데이터 제공
+  // const cafeData = await cafeModel.cafe.get();
+  // socket.emit('giveCafeInfoServerToClient', cafeData);
+
+  // // TODO: 코맨트 접속시 코맨트 데이터 제공
+  // socket.on('giveCommentServerToClient', async cafeId => {
+  //   console.log('***************************cafeId', cafeId);
+  //   const commentData = await commentModel.get.comment(cafeId);
+  //   socket.emit('giveCommentServerToClient', commentData);
+  // });
+  // socket.emit('giveCafeInfoToClient', await cafeModel.cafe.get());
+
+  socket.on('postCafeIdToGetComment', async cafeId => {
+    console.log('cafeId', cafeId);
+    const commentData = await commentModel.get.comment(cafeId);
+    socket.emit('giveCommentsToClient', commentData);
+  });
+
+  // TODO: 코맨트 포스트시 코맨트 추가된 새로운 배열을 제공 / 카페도 새로운 것으로 갱신
+  socket.on('postCommentToSaveDB', async comment => {
+    console.log('comment', comment);
     await db.comments.create({
       userId: comment.userId,
       cafeId: comment.cafeId,
       comment: comment.comment
     });
-    const cafeComments = await db.comments.findAll({
-      where: { cafeId: comment.cafeId }
-    });
+    console.log('comment.cafeId', comment.cafeId);
+    const cafeComments = await db.comments
+      .findAll({
+        where: { cafeId: comment.cafeId }
+      })
+      .catch(err => console.error(err));
+
+    console.log('cafeComments.length', cafeComments.length);
+    socket.emit('giveNewChatInfo', cafeComments);
+    socket.broadcast.emit('giveNewChatInfo', cafeComments);
+    // console.log('cafeComments가 뭐야 어딨어', cafeComments);
     // 메시지를 전송한 클라이언트에게만 메시지를 전송한다
-    socket.emit('giveCommentServerToClient', cafeComments);
-    socket.broadcast.emit('giveCommentServerToClient', cafeComments);
+    // socket.emit('giveCommentServerToClient', cafeComments);
+    // socket.broadcast.emit('giveCafeInfoServerToClient', cafeData);
   });
 });
 
