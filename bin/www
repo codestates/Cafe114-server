@@ -33,6 +33,7 @@ server.listen(port, () => {
 });
 // TODO: socket-io 서버 구현
 const io = socketio(server);
+io.origins('*:*');
 
 io.on('connection', async socket => {
   console.log('connect client by socket.io, Hello Client');
