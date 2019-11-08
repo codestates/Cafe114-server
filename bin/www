@@ -32,7 +32,7 @@ server.listen(port, () => {
   console.log('server listening on port ' + port);
 });
 // TODO: socket-io 서버 구현
-const io = socketio(http);
+const io = socketio(server, { path: '/socket.io' });
 
 io.origins('*:*');
 
