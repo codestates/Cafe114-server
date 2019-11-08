@@ -4,8 +4,7 @@ const router = require('express').Router();
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  console.log('__dirname', __dirname);
-  res.sendFile(__dirname + '/index.html');
+  res.send('hello');
 });
 
 router.get('/signout', controller.get.signOut);
