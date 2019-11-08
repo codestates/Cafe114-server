@@ -13,8 +13,8 @@ const cafeRouter = require('./routes/cafe');
 const app = express();
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 //아래 설정을 하면 cache를 저장하지 않음으로서 사용자 304대신 200으로 응답을 줄 수 있음
 //동적 요청에 대한 응답을 보낼 때 etag 생성을 하지 않도록 설정

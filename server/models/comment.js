@@ -18,6 +18,23 @@ module.exports = {
           ]
         })
         .catch(err => console.error(err));
+    },
+    uploadImage: async (userId, cafeId, imageURL) => {
+      await db.comments
+        .create({
+          userId: userId,
+          cafeId: cafeId,
+          image: imageURL
+        })
+        .catch(err => console.error(err));
+      return await db.comments
+        .findAll({
+          where: { cafeId: cafeId },
+          include: [
+            { model: db.users, as: 'user', attributes: ['name', 'email'] }
+          ]
+        })
+        .catch(err => console.error(err));
     }
   },
   get: {
