@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "cafe114",
+    "password": "gowns0396",
+    "database": "cafe114",
+    "host": "cafe114.c0we6vb2nyq3.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "cafe114",
+    "password": "gowns0396",
+    "database": "cafe114",
+    "host": "cafe114.c0we6vb2nyq3.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  }
+}
