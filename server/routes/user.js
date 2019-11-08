@@ -12,8 +12,12 @@ router.use('/', checkToken);
 // 좋아하는 카페 추가하기
 router.get('/mypage', controller.get.mypage);
 
+router.get('/mypage/comment', controller.get.myComment);
+
 router.post('/favorites', controller.post.favorites);
 
 router.delete('/favorites', controller.delete.deleteFavorite);
+
+router.delete('/mypage/comment/:commentId', controller.delete.myComment);
 
 module.exports = router;

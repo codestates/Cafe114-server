@@ -59,6 +59,7 @@ module.exports = {
               req.params.id
             );
             result.favorite = checkUserFavorite;
+            result.userId = req.decodedId;
             res.json(response(true, true, null, result)); // result로 반환한다
           }
         })

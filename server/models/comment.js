@@ -22,15 +22,27 @@ module.exports = {
   },
   get: {
     comment: async cafeId => {
-      // return await db.comments
-      //   .findAll({ where: { cafeId: cafeId } })
-      //   .catch(err => console.error(err));
       return await db.comments
         .findAll({
           where: { cafeId: cafeId },
           include: [
             { model: db.users, as: 'user', attributes: ['name', 'email'] }
           ]
+        })
+        .catch(err => console.error(err));
+    },
+    myComment: async userId => {
+      return await db.comments.findAll({
+        where: { userId: userId },
+        include: [{ model: db.cafe, as: 'cafe', attributes: ['name'] }]
+      });
+    }
+  },
+  delete: {
+    myComment: async (userId, commentId) => {
+      return await db.comments
+        .destroy({
+          where: { userId: userId, id: commentId }
         })
         .catch(err => console.error(err));
     }
