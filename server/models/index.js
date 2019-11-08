@@ -49,12 +49,18 @@ module.exports = {
         .findOne({ where: { email: email } })
         .catch(err => console.error(err));
     },
-    kakao: async kakaoId => {
+    kakao: async (email, nickname, image, kakaoId) => {
       const kakaoUserId = await db.users
         .findOne({ where: { kakaoId: kakaoId } })
         .then(async result => {
           if (!result) {
-            await db.users.create({ kakaoId: kakaoId });
+            await db.users.create({
+              kakaoId: kakaoId,
+              email: email,
+              nickname: nickname,
+              image: image
+            });
+
             return db.users
               .findOne({ where: { kakaoId: kakaoId } })
               .then(result => {

@@ -50,8 +50,14 @@ module.exports = {
     },
 
     kakao: async (req, res) => {
-      const kakaoId = req.body.kakao.id;
-      const kakaoUserToken = await models.index.kakao(kakaoId);
+      console.log('req.body.kakao', req.body.kakao);
+      const { kakaoId, email, nickname, image } = req.body.kakao;
+      const kakaoUserToken = await models.index.kakao(
+        email,
+        nickname,
+        image,
+        kakaoId
+      );
       res.cookie('userToken', kakaoUserToken, {
         maxAge: 2 * 1000 * 60 * 60,
         httpOnly: true
