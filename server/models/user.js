@@ -1,6 +1,4 @@
 const db = require('../../database/models');
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 module.exports = {

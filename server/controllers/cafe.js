@@ -91,6 +91,23 @@ module.exports = {
       } else {
         res.json(response(false, false, 'Not logged in', null));
       }
+    },
+    image: async (req, res) => {
+      console.log('req.file', req.file);
+      console.log('req.file.location', req.file.location);
+      const userId = req.decodedId;
+      const { cafeId } = req.params;
+      const imageURL = req.file.location;
+      if (userId) {
+        const addImageAndGiveComment = await commentModel.create.uploadImage(
+          userId,
+          cafeId,
+          imageURL
+        );
+        res.json(response(true, true, null, addImageAndGiveComment));
+      } else {
+        res.json(response(false, false, 'Not logged in', null));
+      }
     }
   }
 };
