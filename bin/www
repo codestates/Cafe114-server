@@ -22,17 +22,17 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, () => {
+const server = app.listen(port, () => {
   console.log('server listening on port ' + port);
 });
 // TODO: socket-io 서버 구현
-const io = socketio(server);
+const io = socketio.listen(server);
 
 io.on('connection', async socket => {
   console.log('connect client by socket.io, Hello Client');
