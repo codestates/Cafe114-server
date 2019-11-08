@@ -1,1 +1,13 @@
 node_modules
+dist/*
+*.log
+
+# For your secret
+secret.js
+
+# For your secret
+.env
+
+.eslintrc.json
+
+.sequelizerc
