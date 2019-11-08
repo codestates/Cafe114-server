@@ -19,6 +19,9 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING,
         unique: true
       },
+      image: {
+        type: DataTypes.STRING
+      },
       birth: {
         type: DataTypes.STRING(4)
       },
