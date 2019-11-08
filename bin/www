@@ -34,6 +34,7 @@ const server = app.listen(port, () => {
 // TODO: socket-io 서버 구현
 const io = socketio.listen(server);
 
+io.origins(['http://127.0.0.1:3000']);
 io.on('connection', async socket => {
   console.log('connect client by socket.io, Hello Client');
 
