@@ -5,11 +5,12 @@
  */
 
 const app = require('../server/app');
+const cors = require('cors');
+app.use(cors());
 const debug = require('debug')('cafe114-server:server');
 const http = require('http');
 const socketio = require('socket.io');
 const db = require('../database/models');
-const cafeModel = require('../server/models/cafe');
 const commentModel = require('../server/models/comment');
 /**
  * Get port from environment and store in Express.
@@ -17,7 +18,6 @@ const commentModel = require('../server/models/comment');
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
 /**
  * Create HTTP server.
  */
@@ -32,18 +32,7 @@ server.listen(port, () => {
   console.log('server listening on port ' + port);
 });
 // TODO: socket-io 서버 구현
-const io = socketio(server, {
-  handlePreflightRequest: (req, res) => {
-    console.log('req.headers.origin', req.headers.origin);
-    const headers = {
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Allow-Origin': req.headers.origin, //or the specific origin you want to give access to,
-      'Access-Control-Allow-Credentials': true
-    };
-    res.writeHead(200, headers);
-    res.end();
-  }
-});
+const io = socketio(server);
 
 io.on('connection', async socket => {
   console.log('connect client by socket.io, Hello Client');
@@ -81,7 +70,6 @@ io.on('connection', async socket => {
       })
       .catch(err => console.error(err));
 
-    console.log('cafeComments.length', cafeComments.length);
     socket.emit('giveNewChatInfo', cafeComments);
     socket.broadcast.emit('giveNewChatInfo', cafeComments);
     io.emit('giveNewChatInfo', cafeComments);
