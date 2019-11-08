@@ -34,7 +34,7 @@ server.listen(port, () => {
 // TODO: socket-io 서버 구현
 const io = socketio(http);
 
-io.set('origins', 'http://localhost:3000');
+io.origins('*:*'
 
 io.on('connection', async socket => {
   console.log('connect client by socket.io, Hello Client');
