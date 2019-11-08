@@ -43,6 +43,7 @@ module.exports = {
       return await db.comments
         .findAll({
           where: { cafeId: cafeId },
+          order: [['id', 'ASC']],
           include: [
             { model: db.users, as: 'user', attributes: ['name', 'email'] }
           ]
