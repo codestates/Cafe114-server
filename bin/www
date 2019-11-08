@@ -32,8 +32,18 @@ server.listen(port, () => {
   console.log('server listening on port ' + port);
 });
 // TODO: socket-io 서버 구현
-const io = socketio(server);
-io.origins('*:*');
+const io = socketio(server, {
+  handlePreflightRequest: (req, res) => {
+    console.log('req.headers.origin', req.headers.origin);
+    const headers = {
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Origin': req.headers.origin, //or the specific origin you want to give access to,
+      'Access-Control-Allow-Credentials': true
+    };
+    res.writeHead(200, headers);
+    res.end();
+  }
+});
 
 io.on('connection', async socket => {
   console.log('connect client by socket.io, Hello Client');
@@ -74,6 +84,7 @@ io.on('connection', async socket => {
     console.log('cafeComments.length', cafeComments.length);
     socket.emit('giveNewChatInfo', cafeComments);
     socket.broadcast.emit('giveNewChatInfo', cafeComments);
+    io.emit('giveNewChatInfo', cafeComments);
     // console.log('cafeComments가 뭐야 어딨어', cafeComments);
     // 메시지를 전송한 클라이언트에게만 메시지를 전송한다
     // socket.emit('giveCommentServerToClient', cafeComments);

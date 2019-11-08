@@ -3,8 +3,6 @@ const router = require('express').Router();
 const checkToken = require('../middlewares/auth').checkToken;
 const upload = require('../middlewares/uploadImage');
 
-console.log('upload', upload);
-
 router.use('/', checkToken);
 
 router.get('/', controller.get.cafeInfo);
