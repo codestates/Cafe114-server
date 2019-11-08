@@ -26,9 +26,10 @@ module.exports = {
     getFavorites: async id => {
       return await db.userLikeCafe
         .findAll({
-          where: { userId: id }
+          where: { userId: id },
+          include: [{ model: db.cafe, as: 'cafe' }]
         })
-        .then(ele => ele.map(ele => ele.dataValues.cafeId))
+        .then(result => result.map(ele => ele.cafe))
         .catch(err => console.error(err));
     },
     checkFavorite: async (userId, cafeId) => {
