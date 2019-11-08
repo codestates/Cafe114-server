@@ -24,8 +24,6 @@ module.exports = {
           phone
         } = userData;
         const userCafeData = await userModel.user.getFavorites(userId);
-        console.log('userData,', userData);
-        console.log('userCafeData', userCafeData);
         const result = {
           name: name,
           email: email,
@@ -54,7 +52,8 @@ module.exports = {
   post: {
     favorites: async (req, res) => {
       console.log('req.decodedId', req.decodedId);
-      const { cafeId } = req.body;
+      console.log('req.body', req.body);
+      const cafeId = req.body.cafeId;
       if (!req.decodedId) {
         res.json(response(false, false, 'Not logged in', null));
       } else {
