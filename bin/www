@@ -56,11 +56,12 @@ io.on('connection', async socket => {
       comment: comment.comment
     });
     console.log('comment.cafeId', comment.cafeId);
-    const cafeComments = await db.comments
-      .findAll({
-        where: { cafeId: comment.cafeId }
-      })
-      .catch(err => console.error(err));
+    const cafeComments = awaitcommentModel.get.comment(comment.cafeId);
+    // const cafeComments = await db.comments
+    //   .findAll({
+    //     where: { cafeId: comment.cafeId }
+    //   })
+    //   .catch(err => console.error(err));
 
     socket.emit('giveNewChatInfo', cafeComments);
     socket.broadcast.emit('giveNewChatInfo', cafeComments);
