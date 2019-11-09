@@ -15,7 +15,11 @@ module.exports = {
           where: { cafeId: cafeId },
           order: [['id', 'ASC']],
           include: [
-            { model: db.users, as: 'user', attributes: ['name', 'email'] }
+            {
+              model: db.users,
+              as: 'user',
+              attributes: ['name', 'nickname', 'email']
+            }
           ]
         })
         .catch(err => console.error(err));
@@ -32,7 +36,11 @@ module.exports = {
         .findAll({
           where: { cafeId: cafeId },
           include: [
-            { model: db.users, as: 'user', attributes: ['name', 'email'] }
+            {
+              model: db.users,
+              as: 'user',
+              attributes: ['name', 'nickname', 'email']
+            }
           ]
         })
         .catch(err => console.error(err));
@@ -45,7 +53,11 @@ module.exports = {
           where: { cafeId: cafeId },
           order: [['id', 'ASC']],
           include: [
-            { model: db.users, as: 'user', attributes: ['name', 'email'] }
+            {
+              model: db.users,
+              as: 'user',
+              attributes: ['name', 'nickname', 'email']
+            }
           ]
         })
         .catch(err => console.error(err));
