@@ -12,6 +12,7 @@ const http = require('http');
 const socketio = require('socket.io');
 const db = require('../database/models');
 const commentModel = require('../server/models/comment');
+const cafeModel = require('../server/models/cafe');
 /**
  * Get port from environment and store in Express.
  */
@@ -75,10 +76,10 @@ io.on('connection', async socket => {
     socket.emit('giveNewChatInfo', cafeComments);
     socket.broadcast.emit('giveNewChatInfo', cafeComments);
     io.emit('giveNewChatInfo', cafeComments);
-    // console.log('cafeComments가 뭐야 어딨어', cafeComments);
-    // 메시지를 전송한 클라이언트에게만 메시지를 전송한다
-    // socket.emit('giveCommentServerToClient', cafeComments);
-    // socket.broadcast.emit('giveCafeInfoServerToClient', cafeData);
+
+    const cafeData = await cafeModel.cafe.get();
+    socket.emit('giveCafeInfoServerToClient', cafeData);
+    socket.broadcast.emit('giveCafeInfoServerToClient', cafeData);
   });
 });
 
