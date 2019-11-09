@@ -40,18 +40,7 @@ io.origins('*:*');
 io.on('connection', async socket => {
   console.log('connect client by socket.io, Hello Client');
 
-  // // TODO: 접속시 카페 데이터 제공
-  // const cafeData = await cafeModel.cafe.get();
-  // socket.emit('giveCafeInfoServerToClient', cafeData);
-
-  // // TODO: 코맨트 접속시 코맨트 데이터 제공
-  // socket.on('giveCommentServerToClient', async cafeId => {
-  //   console.log('***************************cafeId', cafeId);
-  //   const commentData = await commentModel.get.comment(cafeId);
-  //   socket.emit('giveCommentServerToClient', commentData);
-  // });
-  // socket.emit('giveCafeInfoToClient', await cafeModel.cafe.get());
-
+  //TODO: 코맨트 접속시 코맨트 데이터 제공
   socket.on('postCafeIdToGetComment', async cafeId => {
     console.log('cafeId', cafeId);
     const commentData = await commentModel.get.comment(cafeId);

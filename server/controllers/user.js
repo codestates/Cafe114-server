@@ -21,7 +21,8 @@ module.exports = {
           sex,
           agreementAd,
           location,
-          phone
+          phone,
+          image
         } = userData;
         const userCafeData = await userModel.user.getFavorites(userId);
         const result = {
@@ -33,6 +34,7 @@ module.exports = {
           agreementAd: agreementAd,
           location: location,
           phone: phone,
+          image: image,
           favoriteCafe: userCafeData
         };
         res.json(response(true, true, null, result));
